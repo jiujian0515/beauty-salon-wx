@@ -1,0 +1,30 @@
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@mixin card {
+  background-color: var(--bs-color-bg-card);
+  border-radius: var(--bs-radius-md);
+  padding: var(--bs-spacing-md);
+}
+
+@mixin ellipsis($line: 1) {
+  @if $line == 1 {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  } @else {
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: $line;
+  }
+}

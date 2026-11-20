@@ -1,0 +1,9 @@
+{
+  "extends": "stylelint-config-standard-scss",
+  "ignoreFiles": ["dist/**/*", "node_modules/**/*"],
+  "rules": {
+    "selector-class-pattern": null,
+    "scss/dollar-variable-pattern": null,
+    "selector-type-no-unknown": [true, { "ignoreTypes": ["page", "scroll-view"] }]
+  }
+}

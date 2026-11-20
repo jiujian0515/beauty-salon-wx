@@ -1,0 +1,16 @@
+page {
+  min-height: 100%;
+  background-color: var(--bs-color-bg-page);
+  color: var(--bs-color-text-primary);
+  font-size: var(--bs-font-size-md);
+  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, 'PingFang SC',
+    'Microsoft YaHei', sans-serif;
+  line-height: 1.5;
+}
+
+view,
+text,
+image,
+scroll-view {
+  box-sizing: border-box;
+}

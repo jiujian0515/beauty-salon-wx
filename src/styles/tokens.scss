@@ -1,0 +1,37 @@
+// 设计令牌：以 CSS 自定义属性提供，跨端（小程序 / H5）通用且支持运行时换肤
+// 尺寸按 designWidth=750 编写，px 由构建期自动转换为 rpx
+
+page,
+:root {
+  // 品牌与语义色
+  --bs-color-primary: #e0658a;
+  --bs-color-primary-light: #f8dbe5;
+  --bs-color-text-primary: #1f1f24;
+  --bs-color-text-secondary: #6b6b73;
+  --bs-color-text-placeholder: #a3a3ab;
+  --bs-color-bg-page: #f7f7f8;
+  --bs-color-bg-card: #fff;
+  --bs-color-border: #ececf0;
+  --bs-color-success: #2ba471;
+  --bs-color-warning: #e37318;
+  --bs-color-danger: #d54941;
+
+  // 间距
+  --bs-spacing-xs: 8px;
+  --bs-spacing-sm: 12px;
+  --bs-spacing-md: 16px;
+  --bs-spacing-lg: 24px;
+  --bs-spacing-xl: 32px;
+
+  // 圆角
+  --bs-radius-sm: 8px;
+  --bs-radius-md: 16px;
+  --bs-radius-lg: 24px;
+
+  // 字号
+  --bs-font-size-xs: 22px;
+  --bs-font-size-sm: 26px;
+  --bs-font-size-md: 30px;
+  --bs-font-size-lg: 36px;
+  --bs-font-size-xl: 44px;
+}

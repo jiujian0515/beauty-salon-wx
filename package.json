@@ -1,0 +1,66 @@
+{
+  "name": "beauty-salon-wx",
+  "version": "0.1.0",
+  "private": true,
+  "description": "美容院轻量 SaaS 系统 · 顾客端（Taro 4 + React 18 + TypeScript）",
+  "engines": {
+    "node": ">=18.18.0"
+  },
+  "scripts": {
+    "build:weapp": "taro build --type weapp",
+    "dev:weapp": "npm run build:weapp -- --watch",
+    "build:h5": "taro build --type h5",
+    "dev:h5": "npm run build:h5 -- --watch",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint --ext .ts,.tsx src config types",
+    "lint:style": "stylelint \"src/**/*.scss\"",
+    "format": "prettier --write \"{src,config,types}/**/*.{ts,tsx,scss,json}\""
+  },
+  "browserslist": [
+    "defaults and fully supports es6-module",
+    "maintained node versions"
+  ],
+  "dependencies": {
+    "@babel/runtime": "^7.24.4",
+    "@tarojs/components": "4.3.3",
+    "@tarojs/helper": "4.3.3",
+    "@tarojs/plugin-framework-react": "4.3.3",
+    "@tarojs/plugin-platform-h5": "4.3.3",
+    "@tarojs/plugin-platform-weapp": "4.3.3",
+    "@tarojs/react": "4.3.3",
+    "@tarojs/runtime": "4.3.3",
+    "@tarojs/shared": "4.3.3",
+    "@tarojs/taro": "4.3.3",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "zustand": "^5.0.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.24.4",
+    "@babel/plugin-transform-class-properties": "7.25.9",
+    "@babel/preset-react": "^7.24.1",
+    "@pmmmwh/react-refresh-webpack-plugin": "^0.5.5",
+    "@tarojs/cli": "4.3.3",
+    "@tarojs/plugin-generator": "4.3.3",
+    "@tarojs/taro-loader": "4.3.3",
+    "@tarojs/webpack5-runner": "4.3.3",
+    "@types/minimatch": "^5.1.2",
+    "@types/node": "^18.19.0",
+    "@types/react": "^18.3.3",
+    "@types/webpack-env": "^1.18.5",
+    "babel-preset-taro": "4.3.3",
+    "eslint": "^8.57.0",
+    "eslint-config-taro": "4.3.3",
+    "eslint-plugin-react": "^7.34.1",
+    "eslint-plugin-react-hooks": "^4.6.2",
+    "postcss": "^8.5.6",
+    "prettier": "^3.3.3",
+    "react-refresh": "^0.14.2",
+    "sass": "^1.77.8",
+    "stylelint": "^16.8.2",
+    "stylelint-config-standard-scss": "^13.1.0",
+    "tsconfig-paths-webpack-plugin": "^4.1.0",
+    "typescript": "^5.5.4",
+    "webpack": "5.91.0"
+  }
+}
