@@ -1,4 +1,148 @@
 .login-page {
   min-height: 100vh;
-  padding: var(--bs-spacing-md);
+  padding: 0 var(--bs-spacing-lg) var(--bs-spacing-xl);
+  background: linear-gradient(180deg, var(--bs-color-primary-light) 0%, var(--bs-color-bg-page) 320px);
+}
+
+.login-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 96px 0 48px;
+
+  &__logo {
+    width: 112px;
+    height: 112px;
+    border-radius: 32px;
+    background-color: var(--bs-color-primary);
+    box-shadow: 0 12px 32px rgb(224 101 138 / 28%);
+    color: #fff;
+    font-size: 52px;
+    font-weight: 600;
+    line-height: 112px;
+    text-align: center;
+  }
+
+  &__title {
+    display: block;
+    margin-top: var(--bs-spacing-lg);
+    color: var(--bs-color-text-primary);
+    font-size: var(--bs-font-size-xl);
+    font-weight: 600;
+  }
+
+  &__subtitle {
+    display: block;
+    margin-top: var(--bs-spacing-xs);
+    color: var(--bs-color-text-secondary);
+    font-size: var(--bs-font-size-sm);
+  }
+}
+
+.login-tabs {
+  display: flex;
+  padding: 6px;
+  margin-bottom: var(--bs-spacing-md);
+  background-color: rgb(255 255 255 / 70%);
+  border-radius: var(--bs-radius-lg);
+}
+
+.login-tabs__item {
+  flex: 1;
+  padding: 16px 0;
+  border-radius: var(--bs-radius-md);
+  color: var(--bs-color-text-secondary);
+  font-size: var(--bs-font-size-sm);
+  text-align: center;
+  transition: all 0.2s ease;
+
+  &--active {
+    background-color: var(--bs-color-bg-card);
+    box-shadow: 0 4px 12px rgb(31 31 36 / 8%);
+    color: var(--bs-color-primary);
+    font-weight: 600;
+  }
+}
+
+.login-card {
+  padding: var(--bs-spacing-lg) var(--bs-spacing-md);
+  background-color: var(--bs-color-bg-card);
+  border-radius: var(--bs-radius-lg);
+  box-shadow: 0 8px 32px rgb(31 31 36 / 6%);
+}
+
+.login-field {
+  & + & {
+    margin-top: var(--bs-spacing-md);
+  }
+
+  &__label {
+    display: block;
+    margin-bottom: var(--bs-spacing-xs);
+    color: var(--bs-color-text-secondary);
+    font-size: var(--bs-font-size-xs);
+  }
+
+  &__input {
+    box-sizing: border-box;
+    width: 100%;
+    height: 88px;
+    padding: 0 var(--bs-spacing-md);
+    background-color: var(--bs-color-bg-page);
+    border-radius: var(--bs-radius-md);
+    color: var(--bs-color-text-primary);
+    font-size: var(--bs-font-size-md);
+  }
+
+  &__placeholder {
+    color: var(--bs-color-text-placeholder);
+  }
+}
+
+.login-btn {
+  height: 92px;
+  margin-top: var(--bs-spacing-lg);
+  border-radius: var(--bs-radius-lg);
+  background-color: var(--bs-color-primary);
+  color: #fff;
+  font-size: var(--bs-font-size-md);
+  font-weight: 600;
+  line-height: 92px;
+
+  &::after {
+    border: none;
+  }
+
+  &--wechat {
+    background-color: var(--bs-color-success);
+  }
+
+  &.is-disabled {
+    opacity: 0.6;
+  }
+}
+
+.login-tip {
+  display: block;
+  margin-top: var(--bs-spacing-md);
+  color: var(--bs-color-text-secondary);
+  font-size: var(--bs-font-size-xs);
+  line-height: 1.6;
+  text-align: center;
+}
+
+.login-wechat__desc {
+  display: block;
+  color: var(--bs-color-text-secondary);
+  font-size: var(--bs-font-size-sm);
+  line-height: 1.7;
+  text-align: center;
+}
+
+.login-wechat__hint {
+  display: block;
+  margin-top: var(--bs-spacing-md);
+  color: var(--bs-color-warning);
+  font-size: var(--bs-font-size-sm);
+  text-align: center;
 }

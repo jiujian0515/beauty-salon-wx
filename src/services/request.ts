@@ -43,14 +43,7 @@ function handleUnauthorized() {
 }
 
 export async function request<T = unknown>(options: RequestOptions): Promise<T> {
-  const {
-    url,
-    method = 'GET',
-    data,
-    header,
-    timeout = REQUEST_TIMEOUT,
-    skipAuth = false
-  } = options
+  const { url, method = 'GET', data, header, timeout = REQUEST_TIMEOUT, skipAuth = false } = options
 
   const token = useAuthStore.getState().token
   const headers: Record<string, string> = {
@@ -58,7 +51,7 @@ export async function request<T = unknown>(options: RequestOptions): Promise<T> 
     ...header
   }
   if (!skipAuth && token) {
-    headers.Authorization = `Bearer ${token}`
+    headers.Authorization = `${token}`
   }
 
   let statusCode = 0
@@ -74,7 +67,8 @@ export async function request<T = unknown>(options: RequestOptions): Promise<T> 
     })
     statusCode = res.statusCode
     body = res.data
-  } catch {
+  } catch (error) {
+    console.log('🚀 ~ request ~ error:', error)
     throw new ApiError(-1, '网络异常，请稍后重试')
   }
 
@@ -107,10 +101,18 @@ export const http = {
   put<T = unknown>(url: string, data?: RequestOptions['data'], options?: Partial<RequestOptions>) {
     return request<T>({ ...options, url, method: 'PUT', data })
   },
-  patch<T = unknown>(url: string, data?: RequestOptions['data'], options?: Partial<RequestOptions>) {
+  patch<T = unknown>(
+    url: string,
+    data?: RequestOptions['data'],
+    options?: Partial<RequestOptions>
+  ) {
     return request<T>({ ...options, url, method: 'PATCH', data })
   },
-  delete<T = unknown>(url: string, data?: RequestOptions['data'], options?: Partial<RequestOptions>) {
+  delete<T = unknown>(
+    url: string,
+    data?: RequestOptions['data'],
+    options?: Partial<RequestOptions>
+  ) {
     return request<T>({ ...options, url, method: 'DELETE', data })
   }
 }

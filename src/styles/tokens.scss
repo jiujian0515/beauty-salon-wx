@@ -1,8 +1,11 @@
 // 设计令牌：以 CSS 自定义属性提供，跨端（小程序 / H5）通用且支持运行时换肤
 // 尺寸按 designWidth=750 编写，px 由构建期自动转换为 rpx
+// ⚠️ 不要写成 `page, :root { ... }`：WXSS 不支持 `:root`，
+// 官方编译器 wcsc 会把它编译成 `body,  { ... }`（空选择器），整条规则失效，
+// 导致所有 `var(--bs-*)` 未定义、页面看起来"没有样式"。
+// 这里用 `page, html`：小程序端 page 会编译为 body，H5 端由 html 命中。
 
-page,
-:root {
+@mixin bs-tokens {
   // 品牌与语义色
   --bs-color-primary: #e0658a;
   --bs-color-primary-light: #f8dbe5;
@@ -34,4 +37,9 @@ page,
   --bs-font-size-md: 30px;
   --bs-font-size-lg: 36px;
   --bs-font-size-xl: 44px;
+}
+
+page,
+html {
+  @include bs-tokens;
 }

@@ -7,7 +7,7 @@
 
 顾客通过微信小程序 / 移动 H5 自助完成「选服务 → 选时段 → 付定金 → 锁定时段」的预约闭环，并在「我的预约」中查看、取消预约。
 
-当前仓库**只包含工程架构**：构建配置、目录结构、请求层、状态管理、路由常量与页面骨架。所有页面均为占位骨架（`PagePlaceholder`），不包含任何业务逻辑，后续按 PRD 逐页接入。
+当前仓库已搭建完整工程架构，并已完成**登录页**（手机号 + 密码登录、微信手机号快捷登录）；其余页面仍为占位骨架（`PagePlaceholder`），后续按 PRD 逐页接入。
 
 ## 2. 技术栈
 
@@ -55,10 +55,12 @@ beauty-salon-wx
 │   │   ├── order/list/        # 我的预约（Tab）
 │   │   ├── order/detail/      # 预约详情 / 取消
 │   │   ├── mine/              # 个人中心（Tab）
-│   │   └── login/             # 手机号登录
+│   │   └── login/             # 登录（密码 / 微信手机号快捷登录）
 │   ├── services/
 │   │   ├── request.ts         # 请求层：统一响应、鉴权、错误封装
-│   │   └── api/               # 按业务域拆分的接口定义（预留）
+│   │   └── api/               # 按业务域拆分的接口定义
+│   │       ├── index.ts       # 接口统一出口
+│   │       └── auth.ts        # 顾客登录 / 当前顾客接口
 │   ├── store/
 │   │   ├── index.ts           # store 统一出口
 │   │   └── auth.ts            # 登录态（token / user）
@@ -67,7 +69,8 @@ beauty-salon-wx
 │   │   ├── mixins.scss        # 布局与文本混入
 │   │   └── index.scss         # 全局基础样式
 │   ├── types/
-│   │   └── api.ts             # 统一响应、分页等通用类型
+│   │   ├── api.ts             # 统一响应、分页等通用类型
+│   │   └── auth.ts            # 顾客登录相关类型
 │   └── utils/
 │       └── price.ts           # 金额工具（分 ↔ 展示）
 ├── .env.development           # 开发环境变量
@@ -145,13 +148,24 @@ Taro 只会把 **`TARO_APP_` 前缀**的变量注入到客户端代码，切勿�
 | 我的预约 | `/pages/order/list/index` | 预约单列表 | ✅ 我的预约 |
 | 预约详情 | `/pages/order/detail/index` | 预约单详情与取消 | — |
 | 个人中心 | `/pages/mine/index` | 账号信息、退出登录 | ✅ 我的 |
-| 登录 | `/pages/login/index` | 手机号登录 | — |
+| 登录 | `/pages/login/index` | 手机号 + 密码登录、微信手机号快捷登录 | — |
 
 ### 新增页面步骤
 
 1. 在 `src/pages/` 下新建目录，包含 `index.tsx`、`index.config.ts`、`index.scss`；
 2. 在 `src/app.config.ts` 的 `pages` 中注册（需要 Tab 时同时补充 `tabBar.list`）；
 3. 在 `src/constants/routes.ts` 增加路径常量，页面间跳转统一使用 `ROUTES.*`。
+
+### 登录流程
+
+登录页提供两种登录方式，接口定义见 [auth.ts](./src/services/api/auth.ts)：
+
+1. **手机号 + 密码**：`POST /api/v1/customer/auth/login` 校验通过后返回 `token`；
+2. **微信手机号快捷登录**：`<Button open-type="getPhoneNumber">` 获取 `phoneCode`，配合 `Taro.login()` 返回的 `loginCode` 调用 `POST /api/v1/customer/auth/wechat/login`，未注册的手机号由后端自动创建账号（无密码）；
+3. 拿到 `token` 后立即调用 `GET /api/v1/customer/auth/me` 拉取顾客资料并写入 `useAuthStore`（后端登录接口只返回 token，顾客信息统一以 `/me` 为准）；
+4. H5 端不支持 `getPhoneNumber`，页面会自动提示改用微信小程序。
+
+> 快捷登录依赖后端 `app.wechat` 的 AppID / AppSecret 配置；未配置时后端返回「微信登录未配置，请联系管理员」。
 
 ## 9. 工程约定
 
@@ -160,7 +174,7 @@ Taro 只会把 **`TARO_APP_` 前缀**的变量注入到客户端代码，切勿�
 - **金额**：全链路以「分」为整数传输与存储，展示统一走 `utils/price.ts`，不做浮点运算。
 - **时间**：统一按 `Asia/Shanghai` 时区处理，接口时间以字符串传输。
 - **路径别名**：`@/` 指向 `src/`，TS 与 Webpack 均已配置。
-- **样式**：设计令牌为 CSS 变量 `--bs-*`（见 `styles/tokens.scss`），跨端通用并支持运行时换肤；尺寸直接写 `px`，构建期按 `designWidth: 750` 自动换算为 `rpx`。
+- **样式**：设计令牌为 CSS 变量 `--bs-*`（见 `styles/tokens.scss`），跨端通用并支持运行时换肤；尺寸直接写 `px`，构建期按 `designWidth: 750` 自动换算为 `rpx`。令牌同时定义在 `page`（小程序）与 `html`（H5）上，**不要改用 `:root`**——WXSS 不支持该选择器，会被编译成空选择器导致整条变量规则失效。
 - **状态管理**：全局状态使用 Zustand（`src/store/`）；页面内局部状态优先用 React Hooks。
 - **本地存储**：key 统一以 `bs:` 为前缀（见 `STORAGE_KEYS`），避免与宿主环境冲突。
 - **类型**：接口入参/出参类型放在 `src/types/`，业务接口函数放在 `src/services/api/`。
