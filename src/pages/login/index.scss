@@ -1,148 +1,413 @@
+// 登录页：Atelier Morandi 设计语言（暖象牙底 + 莫兰迪梅子色 + 编辑感衬线标题）
+// 尺寸按 designWidth=750 编写（HTML 设计稿 375 宽的 2 倍）
+
 .login-page {
+  // 页面级设计令牌，避免与全局 --bs-* 混用
+  --alm-surface: #fff8f7;
+  --alm-surface-low: #fef0f1;
+  --alm-surface-container: #f8ebec;
+  --alm-surface-high: #f2e5e6;
+  --alm-surface-highest: #eddfe0;
+  --alm-on-surface: #201a1b;
+  --alm-on-surface-variant: #524344;
+  --alm-outline: #847374;
+  --alm-outline-variant: #d6c2c3;
+  --alm-primary: #9b5d64;
+  --alm-primary-deep: #854e54;
+  --alm-secondary: #98434c;
+  --alm-tertiary: #495a51;
+  --alm-white: #fff;
+  --alm-wechat: #07c160;
+  --alm-serif: 'Bodoni Moda', 'Songti SC', 'STSong', georgia, serif;
+
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
   min-height: 100vh;
-  padding: 0 var(--bs-spacing-lg) var(--bs-spacing-xl);
-  background: linear-gradient(180deg, var(--bs-color-primary-light) 0%, var(--bs-color-bg-page) 320px);
+  padding: 0 40px calc(40px + env(safe-area-inset-bottom));
+  background: var(--alm-surface);
+  color: var(--alm-on-surface);
 }
 
-.login-hero {
+// ---------- 品牌区 ----------
+.login-brand {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 96px 0 48px;
+  padding: 40px 0;
+  text-align: center;
 
-  &__logo {
-    width: 112px;
-    height: 112px;
+  &__mark-wrap {
+    position: relative;
+    margin-bottom: 28px;
+  }
+
+  &__mark {
+    display: block;
+    width: 160px;
+    height: 160px;
     border-radius: 32px;
-    background-color: var(--bs-color-primary);
-    box-shadow: 0 12px 32px rgb(224 101 138 / 28%);
-    color: #fff;
-    font-size: 52px;
+    background-color: var(--alm-primary-deep);
+    box-shadow: 0 16px 48px rgb(155 93 100 / 18%);
+  }
+
+  &__badge {
+    position: absolute;
+    right: -12px;
+    bottom: -10px;
+    display: flex;
+    align-items: center;
+    padding: 4px 16px;
+    background-color: var(--alm-surface-low);
+    border-radius: 999px;
+    box-shadow: 0 2px 8px rgb(44 37 38 / 8%);
+  }
+
+  &__dot {
+    width: 10px;
+    height: 10px;
+    margin-right: 8px;
+    background-color: var(--alm-primary);
+    border-radius: 50%;
+  }
+
+  &__badge-text {
+    color: var(--alm-primary);
+    font-size: 20px;
     font-weight: 600;
-    line-height: 112px;
-    text-align: center;
+    letter-spacing: 2px;
   }
 
   &__title {
-    display: block;
-    margin-top: var(--bs-spacing-lg);
-    color: var(--bs-color-text-primary);
-    font-size: var(--bs-font-size-xl);
-    font-weight: 600;
+    color: var(--alm-on-surface);
+    font-family: var(--alm-serif);
+    font-size: 56px;
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: 2px;
   }
 
   &__subtitle {
-    display: block;
-    margin-top: var(--bs-spacing-xs);
-    color: var(--bs-color-text-secondary);
-    font-size: var(--bs-font-size-sm);
+    margin-top: 10px;
+    color: var(--alm-on-surface-variant);
+    font-size: 26px;
+    font-weight: 500;
+    letter-spacing: 1px;
+  }
+
+  &__pill {
+    margin-top: 24px;
+    padding: 8px 24px;
+    background-color: var(--alm-surface-low);
+    border-radius: 999px;
+  }
+
+  &__pill-text {
+    color: var(--alm-tertiary);
+    font-size: 20px;
+    letter-spacing: 1px;
   }
 }
 
+// ---------- 分段切换 ----------
 .login-tabs {
   display: flex;
-  padding: 6px;
-  margin-bottom: var(--bs-spacing-md);
-  background-color: rgb(255 255 255 / 70%);
-  border-radius: var(--bs-radius-lg);
+  align-items: center;
+  padding: 8px;
+  margin-bottom: 36px;
+  background-color: rgb(242 229 230 / 60%);
+  border-radius: 32px;
 }
 
 .login-tabs__item {
+  display: flex;
   flex: 1;
-  padding: 16px 0;
-  border-radius: var(--bs-radius-md);
-  color: var(--bs-color-text-secondary);
-  font-size: var(--bs-font-size-sm);
-  text-align: center;
-  transition: all 0.2s ease;
+  min-width: 0;
+  align-items: center;
+  justify-content: center;
+  height: 88px;
+  border-radius: 24px;
+  color: var(--alm-on-surface-variant);
 
   &--active {
-    background-color: var(--bs-color-bg-card);
-    box-shadow: 0 4px 12px rgb(31 31 36 / 8%);
-    color: var(--bs-color-primary);
+    background-color: var(--alm-white);
+    box-shadow: 0 2px 10px rgb(44 37 38 / 6%);
+    color: var(--alm-primary);
     font-weight: 600;
   }
 }
 
-.login-card {
-  padding: var(--bs-spacing-lg) var(--bs-spacing-md);
-  background-color: var(--bs-color-bg-card);
-  border-radius: var(--bs-radius-lg);
-  box-shadow: 0 8px 32px rgb(31 31 36 / 6%);
+.login-tabs__mark {
+  width: 34px;
+  height: 34px;
+  margin-right: 10px;
+  background-color: var(--alm-wechat);
+  border-radius: 50%;
+  color: var(--alm-white);
+  font-size: 20px;
+  line-height: 34px;
+  text-align: center;
 }
 
+.login-tabs__text {
+  font-size: 26px;
+  line-height: 1;
+}
+
+.login-tabs__badge {
+  margin-left: 8px;
+  padding: 2px 10px;
+  background-color: var(--alm-surface-low);
+  border-radius: 999px;
+  color: var(--alm-secondary);
+  font-size: 18px;
+  line-height: 1.4;
+}
+
+// ---------- 卡片 ----------
+.login-card {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 40px 32px 36px;
+  background-color: var(--alm-white);
+  border: 1px solid rgb(155 93 100 / 12%);
+  border-radius: 24px;
+  box-shadow:
+    0 24px 64px -8px rgb(44 37 38 / 6%),
+    0 4px 12px -2px rgb(155 93 100 / 4%);
+
+  &--center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 56px 40px 48px;
+    text-align: center;
+  }
+}
+
+// ---------- 输入项 ----------
 .login-field {
   & + & {
-    margin-top: var(--bs-spacing-md);
+    margin-top: 32px;
   }
 
   &__label {
     display: block;
-    margin-bottom: var(--bs-spacing-xs);
-    color: var(--bs-color-text-secondary);
-    font-size: var(--bs-font-size-xs);
+    margin-bottom: 14px;
+    color: var(--alm-on-surface-variant);
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: 2px;
+  }
+
+  &__control {
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    height: 104px;
+    padding: 0 24px;
+    background-color: var(--alm-surface-low);
+    border: 1px solid rgb(44 37 38 / 8%);
+    border-radius: 16px;
   }
 
   &__input {
+    flex: 1;
     box-sizing: border-box;
     width: 100%;
-    height: 88px;
-    padding: 0 var(--bs-spacing-md);
-    background-color: var(--bs-color-bg-page);
-    border-radius: var(--bs-radius-md);
-    color: var(--bs-color-text-primary);
-    font-size: var(--bs-font-size-md);
+    min-width: 0;
+    height: 100%;
+    color: var(--alm-on-surface);
+    font-size: 28px;
+    line-height: 104px;
   }
 
   &__placeholder {
-    color: var(--bs-color-text-placeholder);
+    color: var(--alm-outline);
+  }
+
+  &__toggle {
+    padding-left: 16px;
+    color: var(--alm-primary);
+    font-size: 24px;
+    white-space: nowrap;
   }
 }
 
-.login-btn {
-  height: 92px;
-  margin-top: var(--bs-spacing-lg);
-  border-radius: var(--bs-radius-lg);
-  background-color: var(--bs-color-primary);
-  color: #fff;
-  font-size: var(--bs-font-size-md);
+.login-areacode {
+  display: flex;
+  align-items: center;
+  padding-right: 4px;
+
+  &__text {
+    color: var(--alm-on-surface);
+    font-size: 28px;
+    font-weight: 600;
+  }
+
+  &__arrow {
+    margin-left: 4px;
+    color: var(--alm-outline);
+    font-size: 20px;
+  }
+
+  &__divider {
+    width: 1px;
+    height: 32px;
+    margin: 0 20px 0 16px;
+    background-color: var(--alm-outline-variant);
+  }
+}
+
+// ---------- 辅助链接 ----------
+.login-links {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px 0 8px;
+
+  &__muted {
+    color: var(--alm-on-surface-variant);
+    font-size: 24px;
+  }
+
+  &__primary {
+    color: var(--alm-primary);
+    font-size: 24px;
+    font-weight: 600;
+  }
+}
+
+// ---------- 主按钮 ----------
+.login-submit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 100%;
+  height: 96px;
+  margin-top: 24px;
+  padding: 0;
+  background-color: var(--alm-primary);
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgb(155 93 100 / 18%);
+  color: var(--alm-white);
+  font-size: 26px;
   font-weight: 600;
-  line-height: 92px;
+  letter-spacing: 2px;
+  line-height: 96px;
 
   &::after {
     border: none;
   }
 
   &--wechat {
-    background-color: var(--bs-color-success);
+    background-color: var(--alm-wechat);
+    box-shadow: 0 8px 24px rgb(7 193 96 / 22%);
   }
 
   &.is-disabled {
     opacity: 0.6;
   }
+
+  &__text {
+    color: var(--alm-white);
+    font-size: 26px;
+    letter-spacing: 2px;
+  }
+
+  &__arrow {
+    margin-left: 12px;
+    font-size: 28px;
+  }
 }
 
-.login-tip {
-  display: block;
-  margin-top: var(--bs-spacing-md);
-  color: var(--bs-color-text-secondary);
-  font-size: var(--bs-font-size-xs);
-  line-height: 1.6;
-  text-align: center;
+// ---------- 微信一键授权 ----------
+.login-wechat {
+  &__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 112px;
+    height: 112px;
+    margin-bottom: 24px;
+    background-color: var(--alm-surface-low);
+    border-radius: 50%;
+  }
+
+  &__glyph {
+    width: 56px;
+    height: 56px;
+    background-color: var(--alm-wechat);
+    border-radius: 50%;
+    color: var(--alm-white);
+    font-size: 30px;
+    line-height: 56px;
+    text-align: center;
+  }
+
+  &__title {
+    color: var(--alm-on-surface);
+    font-size: 34px;
+    font-weight: 600;
+    letter-spacing: 1px;
+  }
+
+  &__desc {
+    margin-top: 12px;
+    color: var(--alm-on-surface-variant);
+    font-size: 26px;
+    line-height: 1.7;
+  }
+
+  &__hint {
+    margin-top: 24px;
+    color: var(--alm-secondary);
+    font-size: 24px;
+  }
 }
 
-.login-wechat__desc {
-  display: block;
-  color: var(--bs-color-text-secondary);
-  font-size: var(--bs-font-size-sm);
-  line-height: 1.7;
-  text-align: center;
-}
+// ---------- 协议勾选 ----------
+.login-agree {
+  display: flex;
+  align-items: flex-start;
+  padding: 32px 8px 0;
 
-.login-wechat__hint {
-  display: block;
-  margin-top: var(--bs-spacing-md);
-  color: var(--bs-color-warning);
-  font-size: var(--bs-font-size-sm);
-  text-align: center;
+  &__box {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    margin: 6px 16px 0 0;
+    background-color: var(--alm-surface-container);
+    border-radius: 50%;
+
+    &--checked {
+      background-color: var(--alm-primary);
+    }
+  }
+
+  &__check {
+    color: transparent;
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  &__box--checked &__check {
+    color: var(--alm-white);
+  }
+
+  &__text {
+    flex: 1;
+    color: var(--alm-on-surface-variant);
+    font-size: 24px;
+    line-height: 1.7;
+  }
+
+  &__link {
+    color: var(--alm-primary);
+  }
 }

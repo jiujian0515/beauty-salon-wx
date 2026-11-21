@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import Taro from '@tarojs/taro'
-import { Button, Input, Text, View } from '@tarojs/components'
+import { Button, Image, Input, Text, View } from '@tarojs/components'
 import type { BaseEventOrig, ButtonProps } from '@tarojs/components'
+import logo from '@/assets/logo.png'
 import { ROUTES } from '@/constants/routes'
 import { fetchCurrentCustomer, loginByPassword, loginByWechatPhone } from '@/services/api'
 import { useAuthStore } from '@/store/auth'
@@ -59,7 +60,19 @@ export default function LoginPage() {
   const [mode, setMode] = useState<LoginMode>('password')
   const [phone, setPhone] = useState('')
   const [password, setPassword] = useState('')
+  const [passwordVisible, setPasswordVisible] = useState(false)
+  const [agreed, setAgreed] = useState(true)
   const [submitting, setSubmitting] = useState(false)
+
+  const notReady = () => toast('该功能暂未开放，请联系门店')
+
+  const ensureAgreed = () => {
+    if (!agreed) {
+      toast('请先阅读并同意用户服务协议与隐私政策')
+      return false
+    }
+    return true
+  }
 
   const handlePasswordLogin = async () => {
     if (submitting) {
@@ -73,6 +86,9 @@ export default function LoginPage() {
     }
     if (!password) {
       toast('请输入密码')
+      return
+    }
+    if (!ensureAgreed()) {
       return
     }
 
@@ -91,6 +107,7 @@ export default function LoginPage() {
   const handleWechatLogin = async (
     event: BaseEventOrig<ButtonProps.onGetPhoneNumberEventDetail>
   ) => {
+    console.log('🚀 ~ handleWechatLogin ~ event:', event)
     if (submitting) {
       return
     }
@@ -98,6 +115,9 @@ export default function LoginPage() {
     const { errMsg, code } = event.detail
     if (!code) {
       toast(errMsg?.includes('deny') ? '已取消手机号授权' : '未获取到手机号，请重试')
+      return
+    }
+    if (!ensureAgreed()) {
       return
     }
 
@@ -119,89 +139,164 @@ export default function LoginPage() {
 
   return (
     <View className='login-page'>
-      <View className='login-hero'>
-        <View className='login-hero__logo'>美</View>
-        <Text className='login-hero__title'>欢迎回来</Text>
-        <Text className='login-hero__subtitle'>登录后预约服务、查看订单</Text>
+      <View className='login-brand'>
+        <View className='login-brand__mark-wrap'>
+          <Image className='login-brand__mark' src={logo} mode='aspectFill' />
+          <View className='login-brand__badge'>
+            <View className='login-brand__dot' />
+            <Text className='login-brand__badge-text'>SALON</Text>
+          </View>
+        </View>
+        <Text className='login-brand__title'>雅奢美学沙龙</Text>
+        <Text className='login-brand__subtitle'>单人私享预约 · 专属美学顾问</Text>
+        <View className='login-brand__pill'>
+          <Text className='login-brand__pill-text'>ATELIER MORANDI · 匠心质感护理</Text>
+        </View>
       </View>
 
-      <View className='login-tabs'>
-        <View
-          className={`login-tabs__item${mode === 'password' ? ' login-tabs__item--active' : ''}`}
-          onClick={() => setMode('password')}
-        >
-          手机号登录
-        </View>
+      {/* <View className='login-tabs'>
         <View
           className={`login-tabs__item${mode === 'wechat' ? ' login-tabs__item--active' : ''}`}
           onClick={() => setMode('wechat')}
         >
-          手机号快捷登录
+          <View className='login-tabs__mark'>微</View>
+          <Text className='login-tabs__text'>微信快捷登录</Text>
+          <Text className='login-tabs__badge'>推荐</Text>
         </View>
-      </View>
+        <View
+          className={`login-tabs__item${mode === 'password' ? ' login-tabs__item--active' : ''}`}
+          onClick={() => setMode('password')}
+        >
+          <Text className='login-tabs__text'>账号密码登录</Text>
+        </View>
+      </View> */}
 
       {mode === 'password' ? (
         <View className='login-card'>
           <View className='login-field'>
-            <Text className='login-field__label'>手机号</Text>
-            <Input
-              className='login-field__input'
-              type='number'
-              maxlength={11}
-              value={phone}
-              placeholder='请输入 11 位手机号'
-              placeholderClass='login-field__placeholder'
-              onInput={(event) => setPhone(event.detail.value)}
-            />
+            <Text className='login-field__label'>手机号码 / MOBILE PHONE</Text>
+            <View className='login-field__control'>
+              <View className='login-areacode' onClick={notReady}>
+                <Text className='login-areacode__text'>+86</Text>
+                <Text className='login-areacode__arrow'>⌄</Text>
+              </View>
+              <View className='login-areacode__divider' />
+              <Input
+                className='login-field__input'
+                type='number'
+                maxlength={11}
+                value={phone}
+                placeholder='请输入 11 位手机号码'
+                placeholderClass='login-field__placeholder'
+                onInput={(event) => setPhone(event.detail.value)}
+              />
+            </View>
           </View>
 
           <View className='login-field'>
-            <Text className='login-field__label'>密码</Text>
-            <Input
-              className='login-field__input'
-              password
-              maxlength={32}
-              value={password}
-              placeholder='请输入登录密码'
-              placeholderClass='login-field__placeholder'
-              onInput={(event) => setPassword(event.detail.value)}
-            />
+            <Text className='login-field__label'>登录密码 / PASSWORD</Text>
+            <View className='login-field__control'>
+              <Input
+                className='login-field__input'
+                password={!passwordVisible}
+                maxlength={32}
+                value={password}
+                placeholder='请输入登录密码'
+                placeholderClass='login-field__placeholder'
+                onInput={(event) => setPassword(event.detail.value)}
+              />
+              <Text
+                className='login-field__toggle'
+                onClick={() => setPasswordVisible((visible) => !visible)}
+              >
+                {passwordVisible ? '隐藏' : '显示'}
+              </Text>
+            </View>
+          </View>
+
+          <View className='login-links'>
+            <Text className='login-links__muted' onClick={notReady}>
+              忘记密码
+            </Text>
+            <Text className='login-links__primary' onClick={notReady}>
+              注册新账号
+            </Text>
           </View>
 
           <Button
-            className={`login-btn${submitting ? ' is-disabled' : ''}`}
+            className={`login-submit${submitting ? ' is-disabled' : ''}`}
             loading={submitting}
             disabled={submitting}
             onClick={handlePasswordLogin}
           >
-            登录
+            <Text className='login-submit__text'>立即登录</Text>
+            {!submitting && <Text className='login-submit__arrow'>→</Text>}
           </Button>
-
-          <Text className='login-tip'>
-            还没有密码？切换到「手机号快捷登录」，未注册的手机号会自动创建账号。
-          </Text>
         </View>
       ) : (
-        <View className='login-card'>
-          <Text className='login-wechat__desc'>
-            使用微信绑定的手机号一键登录，无需输入密码；未注册的手机号将自动创建账号。
-          </Text>
+        <View className='login-card login-card--center'>
+          <View className='login-wechat__icon'>
+            <Text className='login-wechat__glyph'>微</Text>
+          </View>
+          <Text className='login-wechat__title'>微信官方一键授权</Text>
+          <Text className='login-wechat__desc'>快速绑定当前微信号，尊享会员特权与即刻预约</Text>
 
           {IS_WEAPP ? (
             <Button
-              className={`login-btn login-btn--wechat${submitting ? ' is-disabled' : ''}`}
+              className={`login-submit login-submit--wechat${submitting ? ' is-disabled' : ''}`}
               openType='getPhoneNumber'
               loading={submitting}
               disabled={submitting}
               onGetPhoneNumber={handleWechatLogin}
             >
-              微信手机号一键登录
+              <Text className='login-submit__text'>授权微信快速登录</Text>
             </Button>
           ) : (
-            <Text className='login-wechat__hint'>该功能仅支持微信小程序，请在微信中打开使用。</Text>
+            <Button
+              className='login-submit login-submit--wechat'
+              onClick={() => toast('请在微信小程序中打开使用')}
+            >
+              <Text className='login-submit__text'>授权微信快速登录</Text>
+            </Button>
+          )}
+
+          {!IS_WEAPP && (
+            <Text className='login-wechat__hint'>该功能仅支持微信小程序，请在微信中打开使用</Text>
           )}
         </View>
       )}
+
+      <View className='login-agree'>
+        <View
+          className={`login-agree__box${agreed ? ' login-agree__box--checked' : ''}`}
+          onClick={() => setAgreed((value) => !value)}
+        >
+          <Text className='login-agree__check'>✓</Text>
+        </View>
+        <Text className='login-agree__text'>
+          我已阅读并完全同意
+          <Text
+            className='login-agree__link'
+            onClick={(event) => {
+              event.stopPropagation()
+              notReady()
+            }}
+          >
+            《用户服务协议》
+          </Text>
+          与
+          <Text
+            className='login-agree__link'
+            onClick={(event) => {
+              event.stopPropagation()
+              notReady()
+            }}
+          >
+            《隐私权保护政策》
+          </Text>
+          ，登录即享雅奢会员特权与预约安全保障。
+        </Text>
+      </View>
     </View>
   )
 }
