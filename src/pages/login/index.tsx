@@ -58,8 +58,8 @@ async function persistSession(token: string, fallbackPhone = '') {
 
 export default function LoginPage() {
   const [mode, setMode] = useState<LoginMode>('password')
-  const [phone, setPhone] = useState('')
-  const [password, setPassword] = useState('')
+  const [phone, setPhone] = useState('15116342027')
+  const [password, setPassword] = useState('123456')
   const [passwordVisible, setPasswordVisible] = useState(false)
   const [agreed, setAgreed] = useState(true)
   const [submitting, setSubmitting] = useState(false)

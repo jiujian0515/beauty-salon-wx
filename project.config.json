@@ -2,7 +2,7 @@
   "miniprogramRoot": "./dist",
   "projectname": "beauty-salon-wx",
   "description": "美容院轻量 SaaS 系统 · 顾客端",
-  "appid": "touristappid",
+  "appid": "wx0a166c38fbe9395c",
   "setting": {
     "urlCheck": true,
     "es6": false,

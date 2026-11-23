@@ -1,4 +1,442 @@
+// 首页服务列表：Atelier Morandi 设计语言（暖象牙底 + 莫兰迪梅子色 + 编辑感衬线标题）
+// 尺寸按 designWidth=750 编写（HTML 设计稿 375 宽的 2 倍）
+
 .home-page {
+  // 页面级设计令牌，避免与全局 --bs-* 混用
+  --alm-surface: #fff8f7;
+  --alm-surface-low: #fef0f1;
+  --alm-surface-container: #f8ebec;
+  --alm-surface-high: #f2e5e6;
+  --alm-on-surface: #201a1b;
+  --alm-on-surface-variant: #524344;
+  --alm-outline: #847374;
+  --alm-outline-variant: #d6c2c3;
+  --alm-primary: #9b5d64;
+  --alm-primary-deep: #854e54;
+  --alm-secondary: #98434c;
+  --alm-tertiary: #495a51;
+  --alm-white: #fff;
+  --alm-serif: 'Bodoni Moda', 'Songti SC', 'STSong', georgia, serif;
+
+  box-sizing: border-box;
   min-height: 100vh;
-  padding: var(--bs-spacing-md);
+  padding: 0 40px calc(48px + env(safe-area-inset-bottom));
+  background: var(--alm-surface);
+  color: var(--alm-on-surface);
+}
+
+// ---------- 品牌 ----------
+.home-brand {
+  display: flex;
+  align-items: center;
+  padding: 24px 0 16px;
+
+  &__logo {
+    flex-shrink: 0;
+    width: 64px;
+    height: 64px;
+    margin-right: 16px;
+    background-color: var(--alm-primary-deep);
+    border-radius: 20px;
+  }
+
+  &__text {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+
+  &__name {
+    overflow: hidden;
+    color: var(--alm-on-surface);
+    font-size: 30px;
+    font-weight: 600;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__subtitle {
+    margin-top: 4px;
+    overflow: hidden;
+    color: var(--alm-outline);
+    font-size: 20px;
+    letter-spacing: 2px;
+    text-overflow: ellipsis;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+}
+
+// ---------- 门店横幅 ----------
+.home-hero {
+  position: relative;
+  padding: 32px;
+  overflow: hidden;
+  background-color: var(--alm-surface-container);
+  border-radius: 24px;
+  box-shadow: 0 8px 24px rgb(44 37 38 / 5%);
+
+  &__top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+  }
+
+  &__intro {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+
+  &__eyebrow {
+    color: var(--alm-secondary);
+    font-size: 20px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  &__title {
+    margin-top: 8px;
+    font-family: var(--alm-serif);
+    font-size: 36px;
+    font-weight: 600;
+    line-height: 1.3;
+  }
+
+  &__address {
+    margin-top: 4px;
+    color: var(--alm-on-surface-variant);
+    font-size: 24px;
+  }
+
+  &__status {
+    display: flex;
+    flex-shrink: 0;
+    flex-direction: column;
+    align-items: flex-end;
+    margin-left: 12px;
+  }
+
+  &__status-pill {
+    display: flex;
+    align-items: center;
+    padding: 4px 16px;
+    background-color: var(--alm-white);
+    border-radius: 999px;
+  }
+
+  &__status-dot {
+    width: 10px;
+    height: 10px;
+    margin-right: 8px;
+    background-color: var(--alm-tertiary);
+    border-radius: 50%;
+  }
+
+  &__status-text {
+    color: var(--alm-tertiary);
+    font-size: 20px;
+    font-weight: 600;
+  }
+
+  &__hours {
+    margin-top: 12px;
+    color: var(--alm-outline);
+    font-size: 20px;
+  }
+
+  &__features {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 24px;
+  }
+
+  &__feature {
+    padding: 6px 16px;
+    margin: 0 12px 12px 0;
+    color: var(--alm-on-surface-variant);
+    font-size: 20px;
+    background-color: var(--alm-surface-high);
+    border-radius: 999px;
+  }
+}
+
+// ---------- 搜索 ----------
+.home-search {
+  display: flex;
+  align-items: center;
+  margin-top: 24px;
+  padding: 16px 24px;
+  background-color: var(--alm-white);
+  border: 1px solid rgb(214 194 195 / 50%);
+  border-radius: 20px;
+
+  &__icon {
+    position: relative;
+    flex-shrink: 0;
+    width: 26px;
+    height: 26px;
+    margin-right: 16px;
+    border: 3px solid var(--alm-primary);
+    border-radius: 50%;
+
+    &::after {
+      position: absolute;
+      right: -8px;
+      bottom: -5px;
+      width: 12px;
+      height: 3px;
+      background-color: var(--alm-primary);
+      border-radius: 2px;
+      content: '';
+      transform: rotate(45deg);
+    }
+  }
+
+  &__input {
+    flex: 1;
+    min-width: 0;
+    height: 44px;
+    color: var(--alm-on-surface);
+    font-size: 24px;
+  }
+
+  &__placeholder {
+    color: var(--alm-outline);
+  }
+
+  &__clear {
+    flex-shrink: 0;
+    padding: 0 6px;
+    margin-left: 12px;
+    color: var(--alm-outline);
+    font-size: 32px;
+    line-height: 1;
+  }
+}
+
+// ---------- 服务分类 ----------
+.home-categories {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 24px;
+
+  &__pill {
+    padding: 10px 24px;
+    margin: 0 12px 12px 0;
+    background-color: var(--alm-surface-container);
+    border: 1px solid transparent;
+    border-radius: 999px;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+
+  &__pill--active {
+    background-color: var(--alm-primary);
+  }
+
+  &__text {
+    color: var(--alm-on-surface-variant);
+    font-size: 24px;
+    font-weight: 600;
+    letter-spacing: 1px;
+  }
+
+  &__pill--active &__text {
+    color: var(--alm-white);
+  }
+}
+
+// ---------- 服务列表 ----------
+.home-list {
+  display: flex;
+  flex-direction: column;
+  margin-top: 24px;
+
+  &__hint {
+    display: block;
+    padding: 24px 0;
+    color: var(--alm-outline);
+    font-size: 24px;
+    text-align: center;
+  }
+
+  &__hint--end {
+    font-size: 22px;
+    letter-spacing: 2px;
+  }
+}
+
+.service-card {
+  padding: 32px;
+  margin-bottom: 24px;
+  background-color: var(--alm-white);
+  border: 1px solid rgb(155 93 100 / 12%);
+  border-radius: 20px;
+  box-shadow: 0 8px 24px rgb(44 37 38 / 4%);
+  transition: background-color 0.2s ease;
+
+  &:active {
+    background-color: var(--alm-surface-low);
+  }
+
+  &__head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+  }
+
+  &__name {
+    flex: 1;
+    color: var(--alm-on-surface);
+    font-family: var(--alm-serif);
+    font-size: 38px;
+    font-weight: 600;
+    line-height: 1.35;
+  }
+
+  &__tags {
+    display: flex;
+    flex-shrink: 0;
+    flex-direction: column;
+    align-items: flex-end;
+    margin-left: 16px;
+  }
+
+  &__category {
+    padding: 4px 14px;
+    margin-bottom: 8px;
+    color: var(--alm-primary-deep);
+    font-size: 20px;
+    font-weight: 600;
+    background-color: var(--alm-surface-low);
+    border-radius: 999px;
+  }
+
+  &__duration {
+    flex-shrink: 0;
+    padding: 4px 14px;
+    color: #6e6667;
+    font-size: 20px;
+    letter-spacing: 1px;
+    background-color: #f4efeb;
+    border-radius: 999px;
+  }
+
+  &__desc {
+    display: flex;
+    align-items: flex-start;
+    padding: 20px;
+    margin-top: 16px;
+    background-color: var(--alm-surface-low);
+    border-radius: 16px;
+  }
+
+  &__desc-mark {
+    flex-shrink: 0;
+    margin-right: 12px;
+    color: var(--alm-primary);
+    font-size: 24px;
+    line-height: 1.6;
+  }
+
+  &__desc-text {
+    flex: 1;
+    color: var(--alm-on-surface-variant);
+    font-size: 24px;
+    line-height: 1.6;
+  }
+
+  &__foot {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-top: 24px;
+  }
+
+  &__price-block {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+
+  &__price {
+    color: var(--alm-primary);
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  &__deposit {
+    align-self: flex-start;
+    padding: 4px 12px;
+    margin-top: 8px;
+    color: var(--alm-primary-deep);
+    font-size: 20px;
+    font-weight: 600;
+    background-color: #f9ebec;
+    border-radius: 8px;
+  }
+
+  &__cta {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    height: 76px;
+    padding: 0 28px;
+    margin-left: 16px;
+    background-color: var(--alm-primary);
+    border-radius: 16px;
+    transition: background-color 0.2s ease;
+
+    &:active {
+      background-color: var(--alm-secondary);
+    }
+  }
+
+  &__cta-text {
+    color: var(--alm-white);
+    font-size: 24px;
+    font-weight: 600;
+    letter-spacing: 1px;
+  }
+
+  &__cta-arrow {
+    margin-left: 8px;
+    color: var(--alm-white);
+    font-size: 24px;
+  }
+}
+
+// ---------- 平台保障 ----------
+.home-guarantee {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  margin-top: 32px;
+  background-color: var(--alm-surface-low);
+  border-radius: 20px;
+
+  &__icon {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    margin-right: 12px;
+    color: var(--alm-white);
+    font-size: 20px;
+    background-color: var(--alm-secondary);
+    border-radius: 50%;
+  }
+
+  &__text {
+    color: var(--alm-on-surface-variant);
+    font-size: 22px;
+    font-weight: 500;
+  }
 }
