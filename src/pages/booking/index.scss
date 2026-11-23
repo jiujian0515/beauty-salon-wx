@@ -1,4 +1,320 @@
+// 预约页：Atelier Morandi 设计语言（暖象牙底 + 莫兰迪梅子色）
+// 尺寸按 designWidth=750 编写（HTML 设计稿 375 宽的 2 倍）
+
 .booking-page {
+  --alm-surface: #fff8f7;
+  --alm-surface-low: #fef0f1;
+  --alm-surface-container: #f8ebec;
+  --alm-surface-high: #f2e5e6;
+  --alm-on-surface: #201a1b;
+  --alm-on-surface-variant: #524344;
+  --alm-outline: #847374;
+  --alm-outline-variant: #d6c2c3;
+  --alm-primary: #9b5d64;
+  --alm-primary-deep: #854e54;
+  --alm-secondary: #98434c;
+  --alm-tertiary: #495a51;
+  --alm-white: #fff;
+  --alm-serif: 'Bodoni Moda', 'Songti SC', 'STSong', georgia, serif;
+
+  box-sizing: border-box;
   min-height: 100vh;
-  padding: var(--bs-spacing-md);
+  padding: 0 40px calc(200px + env(safe-area-inset-bottom));
+  background: var(--alm-surface);
+  color: var(--alm-on-surface);
+}
+
+.booking-tip {
+  padding: 20px 24px;
+  margin-top: 24px;
+  color: var(--alm-on-surface-variant);
+  font-size: 22px;
+  line-height: 1.6;
+  background-color: #fdeff0;
+  border-radius: 16px;
+}
+
+// ---------- 服务信息 ----------
+.booking-card {
+  padding: 28px 32px;
+  margin-top: 24px;
+  background-color: var(--alm-white);
+  border: 1px solid rgb(155 93 100 / 12%);
+  border-radius: 20px;
+  box-shadow: 0 8px 24px rgb(44 37 38 / 4%);
+
+  &__head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+  }
+
+  &__name {
+    flex: 1;
+    font-family: var(--alm-serif);
+    font-size: 36px;
+    font-weight: 600;
+    line-height: 1.35;
+  }
+
+  &__duration {
+    flex-shrink: 0;
+    padding: 4px 14px;
+    margin-left: 16px;
+    color: #6e6667;
+    font-size: 20px;
+    background-color: #f4efeb;
+    border-radius: 999px;
+  }
+
+  &__category {
+    align-self: flex-start;
+    display: inline-block;
+    padding: 4px 14px;
+    margin-top: 12px;
+    color: var(--alm-primary-deep);
+    font-size: 20px;
+    font-weight: 600;
+    background-color: var(--alm-surface-low);
+    border-radius: 999px;
+  }
+
+  &__price {
+    display: flex;
+    align-items: baseline;
+    margin-top: 16px;
+  }
+
+  &__deposit {
+    color: var(--alm-secondary);
+    font-size: 26px;
+    font-weight: 600;
+  }
+
+  &__balance {
+    margin-left: 16px;
+    color: var(--alm-outline);
+    font-size: 22px;
+  }
+}
+
+// ---------- 分区 ----------
+.booking-section {
+  margin-top: 32px;
+
+  &__title {
+    display: block;
+    margin-bottom: 16px;
+    font-family: var(--alm-serif);
+    font-size: 30px;
+    font-weight: 600;
+  }
+}
+
+// ---------- 日期 ----------
+.booking-dates {
+  display: flex;
+  white-space: nowrap;
+
+  &__item {
+    display: inline-flex;
+    flex-shrink: 0;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 120px;
+    padding: 18px 0;
+    margin-right: 16px;
+    background-color: var(--alm-white);
+    border: 1px solid rgb(214 194 195 / 40%);
+    border-radius: 16px;
+  }
+
+  &__item--active {
+    background-color: var(--alm-primary);
+    border-color: var(--alm-primary);
+  }
+
+  &__label {
+    color: var(--alm-outline);
+    font-size: 20px;
+  }
+
+  &__day {
+    margin-top: 6px;
+    color: var(--alm-on-surface);
+    font-size: 32px;
+    font-weight: 600;
+  }
+
+  &__item--active &__label {
+    color: rgb(255 255 255 / 80%);
+  }
+
+  &__item--active &__day {
+    color: var(--alm-white);
+  }
+}
+
+// ---------- 美疗师 ----------
+.booking-staff {
+  display: flex;
+  white-space: nowrap;
+
+  &__item {
+    display: inline-flex;
+    flex-shrink: 0;
+    flex-direction: column;
+    width: 260px;
+    padding: 20px 24px;
+    margin-right: 16px;
+    background-color: var(--alm-white);
+    border: 1px solid rgb(214 194 195 / 40%);
+    border-radius: 16px;
+  }
+
+  &__item--active {
+    background-color: var(--alm-surface-low);
+    border-color: var(--alm-primary);
+  }
+
+  &__name {
+    font-size: 26px;
+    font-weight: 600;
+  }
+
+  &__desc {
+    margin-top: 6px;
+    color: var(--alm-outline);
+    font-size: 20px;
+  }
+}
+
+// ---------- 时段 ----------
+.booking-group {
+  margin-bottom: 24px;
+
+  &__title {
+    display: block;
+    margin-bottom: 12px;
+    color: var(--alm-on-surface-variant);
+    font-size: 22px;
+  }
+}
+
+.booking-slots {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: -16px;
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+    width: calc(50% - 16px);
+    padding: 20px;
+    margin: 0 16px 16px 0;
+    background-color: var(--alm-white);
+    border: 1px solid rgb(214 194 195 / 40%);
+    border-radius: 16px;
+  }
+
+  &__item--active {
+    background-color: var(--alm-surface-low);
+    border-color: var(--alm-primary);
+  }
+
+  &__time {
+    font-size: 28px;
+    font-weight: 600;
+  }
+
+  &__rest {
+    margin-top: 8px;
+    color: var(--alm-outline);
+    font-size: 20px;
+  }
+}
+
+.booking-hint {
+  display: block;
+  padding: 32px 0;
+  color: var(--alm-outline);
+  font-size: 24px;
+  text-align: center;
+}
+
+// ---------- 已选汇总 ----------
+.booking-selected {
+  padding: 24px;
+  margin-top: 8px;
+  background-color: var(--alm-surface-low);
+  border-left: 6px solid var(--alm-primary);
+  border-radius: 16px;
+
+  &__title {
+    display: block;
+    color: var(--alm-primary);
+    font-size: 22px;
+    font-weight: 600;
+  }
+
+  &__text {
+    display: block;
+    margin-top: 8px;
+    font-size: 24px;
+    font-weight: 500;
+  }
+}
+
+// ---------- 底部操作条 ----------
+.booking-bar {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 40px calc(20px + env(safe-area-inset-bottom));
+  background-color: rgb(250 247 245 / 95%);
+  box-shadow: 0 -6px 20px rgb(44 37 38 / 6%);
+
+  &__price {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__label {
+    color: var(--alm-outline);
+    font-size: 20px;
+  }
+
+  &__amount {
+    color: var(--alm-secondary);
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  &__cta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 88px;
+    padding: 0 32px;
+    margin-left: 24px;
+    background-color: var(--alm-primary);
+    border-radius: 16px;
+  }
+
+  &__cta:active {
+    background-color: var(--alm-primary-deep);
+  }
+
+  &__cta-text {
+    color: var(--alm-white);
+    font-size: 26px;
+    font-weight: 600;
+  }
 }

@@ -123,7 +123,16 @@ export default function HomePage() {
   }
 
   const startBooking = (service: ServiceItem) => {
-    Taro.navigateTo({ url: `${ROUTES.BOOKING}?serviceId=${service.id}` })
+    const query = [
+      `serviceId=${service.id}`,
+      `name=${encodeURIComponent(service.name)}`,
+      `category=${service.category ?? ''}`,
+      `durationMinutes=${service.durationMinutes}`,
+      `priceCents=${service.priceCents}`,
+      `depositCents=${service.depositCents}`,
+      `merchantId=${service.merchantId}`
+    ].join('&')
+    Taro.navigateTo({ url: `${ROUTES.BOOKING}?${query}` })
   }
 
   return (
