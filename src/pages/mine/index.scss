@@ -1,4 +1,448 @@
+// 我的：Atelier Morandi 设计语言（暖象牙底 + 莫兰迪梅子色 + 编辑感衬线标题）
+// 尺寸按 designWidth=750 编写
+
 .mine-page {
+  --alm-surface: #fff8f7;
+  --alm-surface-low: #fef0f1;
+  --alm-surface-container: #f8ebec;
+  --alm-surface-high: #f2e5e6;
+  --alm-on-surface: #201a1b;
+  --alm-on-surface-variant: #524344;
+  --alm-outline: #847374;
+  --alm-outline-variant: #d6c2c3;
+  --alm-primary: #9b5d64;
+  --alm-primary-deep: #854e54;
+  --alm-secondary: #98434c;
+  --alm-tertiary: #495a51;
+  --alm-white: #fff;
+  --alm-serif: 'Bodoni Moda', 'Songti SC', 'STSong', georgia, serif;
+
+  box-sizing: border-box;
   min-height: 100vh;
-  padding: var(--bs-spacing-md);
+  padding: 24px 40px calc(48px + env(safe-area-inset-bottom));
+  background: var(--alm-surface);
+  color: var(--alm-on-surface);
+}
+
+// ---------- 页头 ----------
+.mine-head {
+  display: flex;
+  align-items: center;
+  padding: 8px 0 20px;
+
+  &__dot {
+    width: 12px;
+    height: 12px;
+    margin-right: 12px;
+    background-color: var(--alm-primary);
+    border-radius: 50%;
+  }
+
+  &__title {
+    color: var(--alm-primary);
+    font-family: var(--alm-serif);
+    font-size: 34px;
+    font-weight: 600;
+    letter-spacing: 1px;
+  }
+}
+
+// ---------- 资料卡 ----------
+.mine-card {
+  padding: 32px;
+  background-color: var(--alm-white);
+  border: 1px solid rgb(155 93 100 / 12%);
+  border-radius: 20px;
+  box-shadow: 0 12px 32px -6px rgb(44 37 38 / 5%);
+
+  &__profile {
+    display: flex;
+    align-items: center;
+  }
+
+  &__avatar {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    width: 120px;
+    height: 120px;
+    margin-right: 24px;
+    background: linear-gradient(140deg, #f6e3e5, #e9d5d7);
+    border-radius: 50%;
+    box-shadow: 0 4px 16px rgb(155 93 100 / 18%);
+  }
+
+  &__avatar-text {
+    color: var(--alm-primary-deep);
+    font-family: var(--alm-serif);
+    font-size: 48px;
+    font-weight: 600;
+  }
+
+  &__info {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    min-width: 0;
+  }
+
+  &__name-row {
+    display: flex;
+    align-items: center;
+    min-width: 0;
+  }
+
+  &__name {
+    overflow: hidden;
+    font-family: var(--alm-serif);
+    font-size: 34px;
+    font-weight: 600;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__badge {
+    flex-shrink: 0;
+    padding: 4px 14px;
+    margin-left: 12px;
+    color: #782b34;
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    background-color: #ffdadb;
+    border-radius: 999px;
+  }
+
+  &__phone {
+    margin-top: 8px;
+    color: var(--alm-on-surface-variant);
+    font-size: 24px;
+    letter-spacing: 1px;
+  }
+
+  &__bind {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+  }
+
+  &__bind-dot {
+    width: 10px;
+    height: 10px;
+    margin-right: 8px;
+    background-color: var(--alm-tertiary);
+    border-radius: 50%;
+  }
+
+  &__bind-text {
+    color: var(--alm-tertiary);
+    font-size: 18px;
+  }
+
+  &__stats {
+    display: flex;
+    padding: 12px;
+    margin-top: 24px;
+    background-color: rgb(254 240 241 / 70%);
+    border-radius: 16px;
+  }
+
+  &__stat {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 0;
+  }
+
+  &__stat--active {
+    background-color: var(--alm-white);
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgb(44 37 38 / 4%);
+  }
+
+  &__stat-label {
+    color: var(--alm-on-surface-variant);
+    font-size: 18px;
+    letter-spacing: 1px;
+  }
+
+  &__stat-value {
+    display: flex;
+    align-items: baseline;
+    margin-top: 4px;
+  }
+
+  &__stat-num {
+    color: var(--alm-primary);
+    font-family: var(--alm-serif);
+    font-size: 36px;
+    font-weight: 600;
+  }
+
+  &__stat-num--accent {
+    color: var(--alm-secondary);
+  }
+
+  &__stat-unit {
+    margin-left: 6px;
+    color: var(--alm-on-surface-variant);
+    font-size: 20px;
+  }
+
+  &__stat-unit--accent {
+    color: var(--alm-secondary);
+  }
+}
+
+// ---------- 保障条 ----------
+.mine-assure {
+  display: flex;
+  align-items: center;
+  padding: 20px 24px;
+  margin-top: 24px;
+  background-color: var(--alm-surface-container);
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgb(44 37 38 / 3%);
+
+  &__mark {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    margin-right: 16px;
+    background-color: #d5e7db;
+    border-radius: 50%;
+  }
+
+  &__mark-text {
+    color: var(--alm-tertiary);
+    font-size: 24px;
+    font-weight: 700;
+  }
+
+  &__text {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+
+  &__title {
+    font-size: 24px;
+    font-weight: 600;
+  }
+
+  &__desc {
+    margin-top: 4px;
+    color: var(--alm-on-surface-variant);
+    font-size: 20px;
+  }
+}
+
+// ---------- 菜单组 ----------
+.mine-group {
+  margin-top: 24px;
+  overflow: hidden;
+  background-color: var(--alm-white);
+  border: 1px solid rgb(155 93 100 / 10%);
+  border-radius: 20px;
+  box-shadow: 0 8px 24px -4px rgb(44 37 38 / 4%);
+
+  &__label {
+    display: block;
+    padding: 24px 28px 8px;
+    color: var(--alm-outline);
+    font-size: 18px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+}
+
+.mine-item {
+  display: flex;
+  align-items: center;
+  padding: 24px 28px;
+
+  &--pressed,
+  &:active {
+    background-color: var(--alm-surface-low);
+  }
+
+  &__icon {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    width: 68px;
+    height: 68px;
+    margin-right: 20px;
+    background-color: var(--alm-surface-low);
+    border-radius: 50%;
+  }
+
+  &__icon--danger {
+    background-color: rgb(255 218 214 / 60%);
+  }
+
+  &__icon-text {
+    color: var(--alm-primary);
+    font-size: 24px;
+    font-weight: 600;
+  }
+
+  &__icon-text--danger {
+    color: var(--alm-secondary);
+  }
+
+  &__icon-img {
+    width: 54px;
+    height: 54px;
+  }
+
+  &__text {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    min-width: 0;
+  }
+
+  &__title {
+    font-size: 28px;
+    font-weight: 600;
+  }
+
+  &__title--danger {
+    color: var(--alm-secondary);
+  }
+
+  &__desc {
+    margin-top: 6px;
+    overflow: hidden;
+    color: var(--alm-on-surface-variant);
+    font-size: 20px;
+    line-height: 1.5;
+    text-overflow: ellipsis;
+  }
+
+  &__arrow {
+    flex-shrink: 0;
+    margin-left: 16px;
+    color: var(--alm-outline);
+    font-size: 36px;
+    line-height: 1;
+  }
+}
+
+// ---------- 页脚 ----------
+.mine-footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 0 16px;
+  opacity: 0.7;
+
+  &__brand {
+    color: var(--alm-primary);
+    font-family: var(--alm-serif);
+    font-size: 24px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+  }
+
+  &__desc {
+    margin-top: 8px;
+    color: var(--alm-outline);
+    font-size: 20px;
+  }
+
+  &__version {
+    margin-top: 6px;
+    color: var(--alm-outline-variant);
+    font-size: 18px;
+    font-family: menlo, monospace;
+  }
+}
+
+// ---------- 弹层 ----------
+.mine-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: flex-end;
+  padding: 40px;
+  background-color: rgb(54 47 48 / 40%);
+
+  &__panel {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 32px;
+    background-color: var(--alm-white);
+    border-radius: 24px;
+  }
+
+  &__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 16px;
+  }
+
+  &__title {
+    font-family: var(--alm-serif);
+    font-size: 32px;
+    font-weight: 600;
+  }
+
+  &__close {
+    padding: 0 8px;
+    color: var(--alm-outline);
+    font-size: 40px;
+    line-height: 1;
+  }
+
+  &__row {
+    padding: 20px 24px;
+    margin-top: 16px;
+    background-color: var(--alm-surface-low);
+    border-radius: 16px;
+  }
+
+  &__row-title {
+    display: block;
+    font-size: 26px;
+    font-weight: 600;
+  }
+
+  &__row-desc {
+    display: block;
+    margin-top: 8px;
+    color: var(--alm-on-surface-variant);
+    font-size: 22px;
+    line-height: 1.6;
+  }
+
+  &__cta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 88px;
+    margin-top: 24px;
+    background-color: var(--alm-primary);
+    border-radius: 16px;
+  }
+
+  &__cta:active {
+    background-color: var(--alm-primary-deep);
+  }
+
+  &__cta-text {
+    color: var(--alm-white);
+    font-size: 26px;
+    font-weight: 600;
+  }
 }

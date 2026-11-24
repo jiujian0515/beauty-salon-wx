@@ -1,5 +1,11 @@
 import { http } from '@/services/request'
-import type { CustomerInfo, LoginRequest, LoginResponse, WechatPhoneLoginRequest } from '@/types'
+import type {
+  CustomerInfo,
+  CustomerProfile,
+  LoginRequest,
+  LoginResponse,
+  WechatPhoneLoginRequest
+} from '@/types'
 
 const AUTH_BASE = '/api/v1/customer/auth'
 
@@ -16,6 +22,11 @@ export function loginByWechatPhone(payload: WechatPhoneLoginRequest) {
 /** 当前登录顾客信息（请求层自动携带 token） */
 export function fetchCurrentCustomer() {
   return http.get<CustomerInfo>(`${AUTH_BASE}/me`)
+}
+
+/** 当前登录顾客个人信息 + 预约统计（个人中心用，一次请求拿到资料与统计） */
+export function fetchCustomerProfile() {
+  return http.get<CustomerProfile>('/api/v1/customer/profile')
 }
 
 /** 退出登录 */

@@ -80,6 +80,10 @@ export interface ReservationItem {
   serviceItemId: number | string | null
   serviceItemName: string | null
   serviceItemDurationMinutes: number | null
+  /** 服务分类 code（下架或缺省可能为空） */
+  serviceItemCategory: string | null
+  /** 服务价格（分） */
+  serviceItemPriceCents: number | string | null
   resourceId: number | string | null
   resourceName: string | null
   /** STAFF 技师 / ROOM 床位 */

@@ -4,6 +4,7 @@ import { ScrollView, Text, View } from '@tarojs/components'
 import { ROUTES } from '@/constants/routes'
 import { fetchMyReservations, cancelReservation, mockPay } from '@/services/api'
 import type { ReservationItem } from '@/types'
+import { buildBookingQuery } from '@/utils/booking'
 import { navigateTo, switchTab } from '@/utils/navigation'
 import { formatPrice } from '@/utils/price'
 import './index.scss'
@@ -122,11 +123,21 @@ export default function OrderListPage() {
   }
 
   const bookAgain = (item: ReservationItem) => {
-    if (!item.serviceItemId) {
+    const serviceId = item.serviceItemId
+    if (!serviceId) {
       Taro.showToast({ title: '服务项目已下架', icon: 'none' })
       return
     }
-    navigateTo(`${ROUTES.SERVICE_DETAIL}?id=${item.serviceItemId}`)
+    const query = buildBookingQuery({
+      serviceId,
+      name: item.serviceItemName ?? '',
+      category: item.serviceItemCategory,
+      durationMinutes: item.serviceItemDurationMinutes ?? 0,
+      priceCents: item.serviceItemPriceCents ?? 0,
+      depositCents: item.depositCents,
+      merchantId: item.merchantId
+    })
+    navigateTo(`${ROUTES.BOOKING}?${query}`)
   }
 
   const refresh = () => load(1, tab, false)
@@ -282,7 +293,9 @@ export default function OrderListPage() {
                 ) : (
                   <Text className='order-card__amount'>
                     {item.paidAt ? '已付定金' : '应付定金'}
-                    <Text className='order-card__amount-value'>¥{formatPrice(item.depositCents)}</Text>
+                    <Text className='order-card__amount-value'>
+                      ¥{formatPrice(item.depositCents)}
+                    </Text>
                   </Text>
                 )}
                 {item.status === 'PENDING_PAYMENT' && (

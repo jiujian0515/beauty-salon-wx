@@ -5,7 +5,7 @@ import { ROUTES } from '@/constants/routes'
 import { getServiceCategoryLabel } from '@/constants/service'
 import { fetchAvailableSlots, fetchCustomerResources } from '@/services/api'
 import type { AvailableSlot, CustomerResource } from '@/types'
-import { navigateTo } from '@/utils/navigation'
+import { redirectTo } from '@/utils/navigation'
 import { formatPrice } from '@/utils/price'
 import './index.scss'
 
@@ -133,7 +133,8 @@ export default function BookingPage() {
       `name=${encodeURIComponent(service.name)}`,
       `isCourse=${isCourse ? '1' : '0'}`
     ].join('&')
-    navigateTo(`${ROUTES.PAYMENT}?${query}`)
+    // 支付页进入即创建预约，用 redirectTo 替换预约页，避免返回后重复下单
+    redirectTo(`${ROUTES.PAYMENT}?${query}`)
   }
 
   return (

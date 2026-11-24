@@ -31,3 +31,18 @@ export type CustomerInfo = {
   /** 1 启用 0 禁用 */
   status: number
 }
+
+/** 预约统计（个人信息接口中的 reservationStats） */
+export type ReservationStats = {
+  /** 累计成功预约（COMPLETED） */
+  completedCount: number
+  /** 待服务（CONFIRMED） */
+  pendingServiceCount: number
+  /** 待支付（PENDING_PAYMENT） */
+  pendingPaymentCount: number
+}
+
+/** GET /api/v1/customer/profile 返回的个人信息 + 预约统计 */
+export type CustomerProfile = CustomerInfo & {
+  reservationStats: ReservationStats
+}

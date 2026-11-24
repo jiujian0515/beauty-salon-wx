@@ -6,6 +6,7 @@ import { ROUTES } from '@/constants/routes'
 import { SERVICE_CATEGORY_OPTIONS, getServiceCategoryLabel } from '@/constants/service'
 import { fetchServicePage } from '@/services/api'
 import type { ServiceCategory, ServiceItem } from '@/types'
+import { buildBookingQuery } from '@/utils/booking'
 import { navigateTo } from '@/utils/navigation'
 import { formatPrice } from '@/utils/price'
 import './index.scss'
@@ -124,15 +125,15 @@ export default function HomePage() {
   }
 
   const startBooking = (service: ServiceItem) => {
-    const query = [
-      `serviceId=${service.id}`,
-      `name=${encodeURIComponent(service.name)}`,
-      `category=${service.category ?? ''}`,
-      `durationMinutes=${service.durationMinutes}`,
-      `priceCents=${service.priceCents}`,
-      `depositCents=${service.depositCents}`,
-      `merchantId=${service.merchantId}`
-    ].join('&')
+    const query = buildBookingQuery({
+      serviceId: service.id,
+      name: service.name,
+      category: service.category,
+      durationMinutes: service.durationMinutes,
+      priceCents: service.priceCents,
+      depositCents: service.depositCents,
+      merchantId: service.merchantId
+    })
     navigateTo(`${ROUTES.BOOKING}?${query}`)
   }
 
