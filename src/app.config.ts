@@ -37,7 +37,7 @@ export default defineAppConfig({
       },
       {
         pagePath: 'pages/order/list/index',
-        text: '我的预约',
+        text: '预约',
         iconPath: 'assets/tabbar/appointment.png',
         selectedIconPath: 'assets/tabbar/appointment-active.png'
       },

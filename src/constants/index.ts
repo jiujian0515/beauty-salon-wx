@@ -9,6 +9,9 @@ export const API_BASE_URL = process.env.TARO_APP_API_BASE_URL ?? ''
 /** 后端统一响应中代表成功的 code */
 export const API_SUCCESS_CODES: readonly number[] = [0, 200]
 
+/** 后端业务码：未登录 / 登录失效（HTTP 200 返回，需按 401 处理） */
+export const API_NOT_LOGIN_CODE = 40101
+
 /** 请求超时时间（毫秒） */
 export const REQUEST_TIMEOUT = 15000
 

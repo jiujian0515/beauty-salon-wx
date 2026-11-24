@@ -5,6 +5,7 @@ import { ROUTES } from '@/constants/routes'
 import { getServiceCategoryLabel } from '@/constants/service'
 import { fetchAvailableSlots, fetchCustomerResources } from '@/services/api'
 import type { AvailableSlot, CustomerResource } from '@/types'
+import { navigateTo } from '@/utils/navigation'
 import { formatPrice } from '@/utils/price'
 import './index.scss'
 
@@ -76,6 +77,7 @@ export default function BookingPage() {
   const [selectedResourceId, setSelectedResourceId] = useState('')
   const [slots, setSlots] = useState<AvailableSlot[]>([])
   const [selectedSlot, setSelectedSlot] = useState<AvailableSlot | null>(null)
+  const [isCourse, setIsCourse] = useState(false)
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -128,9 +130,10 @@ export default function BookingPage() {
       `endTime=${selectedSlot.endTime}`,
       `depositCents=${service.depositCents}`,
       `priceCents=${service.priceCents}`,
-      `name=${encodeURIComponent(service.name)}`
+      `name=${encodeURIComponent(service.name)}`,
+      `isCourse=${isCourse ? '1' : '0'}`
     ].join('&')
-    Taro.navigateTo({ url: `${ROUTES.PAYMENT}?${query}` })
+    navigateTo(`${ROUTES.PAYMENT}?${query}`)
   }
 
   return (
@@ -145,9 +148,33 @@ export default function BookingPage() {
         {getServiceCategoryLabel(service.category) && (
           <Text className='booking-card__category'>{getServiceCategoryLabel(service.category)}</Text>
         )}
-        <View className='booking-card__price'>
-          <Text className='booking-card__deposit'>定金 {depositText}</Text>
-          <Text className='booking-card__balance'>到店付尾款 {balanceText}</Text>
+        {isCourse ? (
+          <View className='booking-card__price'>
+            <Text className='booking-card__deposit'>疗程预约 · 免定金</Text>
+          </View>
+        ) : (
+          <View className='booking-card__price'>
+            <Text className='booking-card__deposit'>定金 {depositText}</Text>
+            <Text className='booking-card__balance'>到店付尾款 {balanceText}</Text>
+          </View>
+        )}
+      </View>
+
+      <View className='booking-section'>
+        <Text className='booking-section__title'>预约方式</Text>
+        <View
+          className={`booking-course${isCourse ? ' booking-course--active' : ''}`}
+          onClick={() => setIsCourse((value) => !value)}
+        >
+          <View className='booking-course__info'>
+            <Text className='booking-course__name'>疗程预约</Text>
+            <Text className='booking-course__desc'>已购买疗程，免付定金，到店核销次数</Text>
+          </View>
+          <View
+            className={`booking-course__switch${isCourse ? ' booking-course__switch--on' : ''}`}
+          >
+            <View className='booking-course__knob' />
+          </View>
         </View>
       </View>
 
@@ -240,11 +267,13 @@ export default function BookingPage() {
 
       <View className='booking-bar'>
         <View className='booking-bar__price'>
-          <Text className='booking-bar__label'>定金</Text>
-          <Text className='booking-bar__amount'>{depositText}</Text>
+          <Text className='booking-bar__label'>{isCourse ? '疗程预约' : '定金'}</Text>
+          <Text className='booking-bar__amount'>{isCourse ? '免定金' : depositText}</Text>
         </View>
         <View className='booking-bar__cta' onClick={confirm}>
-          <Text className='booking-bar__cta-text'>确认时段，去支付定金</Text>
+          <Text className='booking-bar__cta-text'>
+            {isCourse ? '确认预约' : '确认时段，去支付定金'}
+          </Text>
         </View>
       </View>
     </View>

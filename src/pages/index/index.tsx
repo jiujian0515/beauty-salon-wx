@@ -6,6 +6,7 @@ import { ROUTES } from '@/constants/routes'
 import { SERVICE_CATEGORY_OPTIONS, getServiceCategoryLabel } from '@/constants/service'
 import { fetchServicePage } from '@/services/api'
 import type { ServiceCategory, ServiceItem } from '@/types'
+import { navigateTo } from '@/utils/navigation'
 import { formatPrice } from '@/utils/price'
 import './index.scss'
 
@@ -119,7 +120,7 @@ export default function HomePage() {
   }
 
   const openDetail = (service: ServiceItem) => {
-    Taro.navigateTo({ url: `${ROUTES.SERVICE_DETAIL}?id=${service.id}` })
+    navigateTo(`${ROUTES.SERVICE_DETAIL}?id=${service.id}`)
   }
 
   const startBooking = (service: ServiceItem) => {
@@ -132,7 +133,7 @@ export default function HomePage() {
       `depositCents=${service.depositCents}`,
       `merchantId=${service.merchantId}`
     ].join('&')
-    Taro.navigateTo({ url: `${ROUTES.BOOKING}?${query}` })
+    navigateTo(`${ROUTES.BOOKING}?${query}`)
   }
 
   return (

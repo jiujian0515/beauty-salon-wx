@@ -6,6 +6,7 @@ import logo from '@/assets/logo.png'
 import { ROUTES } from '@/constants/routes'
 import { fetchCurrentCustomer, loginByPassword, loginByWechatPhone } from '@/services/api'
 import { useAuthStore } from '@/store/auth'
+import { navigateBack, switchTab } from '@/utils/navigation'
 import './index.scss'
 
 type LoginMode = 'password' | 'wechat'
@@ -22,9 +23,9 @@ function leaveLoginPage() {
   Taro.showToast({ title: '登录成功', icon: 'success', duration: 600 })
   setTimeout(() => {
     if (Taro.getCurrentPages().length > 1) {
-      Taro.navigateBack()
+      navigateBack()
     } else {
-      Taro.switchTab({ url: ROUTES.HOME })
+      switchTab(ROUTES.HOME)
     }
   }, 600)
 }

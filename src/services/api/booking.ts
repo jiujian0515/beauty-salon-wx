@@ -1,5 +1,10 @@
 import { http } from '@/services/request'
-import type { AvailableSlot, CustomerResourcePage } from '@/types'
+import type {
+  AvailableSlot,
+  CustomerResourcePage,
+  ReservationCreateRequest,
+  ReservationCreateResponse
+} from '@/types'
 
 /** 查询某天可预约时段（公开接口，仅返回可预约时段） */
 export function fetchAvailableSlots(date: string, resourceId?: number | string, merchantId?: number | string) {
@@ -20,4 +25,12 @@ export function fetchCustomerResources(merchantId?: number | string, size = 50) 
     params.merchantId = merchantId
   }
   return http.get<CustomerResourcePage>('/api/v1/resources', params, { skipAuth: true })
+}
+
+/** 创建预约（顾客登录后调用；疗程预约免定金直接确认） */
+export function createReservation(payload: ReservationCreateRequest) {
+  return http.post<ReservationCreateResponse>(
+    '/api/v1/reservations',
+    payload as unknown as Record<string, unknown>
+  )
 }

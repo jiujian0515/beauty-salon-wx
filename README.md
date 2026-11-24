@@ -145,7 +145,7 @@ Taro 只会把 **`TARO_APP_` 前缀**的变量注入到客户端代码，切勿�
 | 服务详情 | `/pages/service/detail/index` | 服务说明、时长、价格、定金 | — |
 | 选择时段 | `/pages/booking/index` | 按日期选择可售时段并提交预约 | — |
 | 支付定金 | `/pages/payment/index` | 展示待支付预约单并支付 | — |
-| 我的预约 | `/pages/order/list/index` | 预约单列表 | ✅ 我的预约 |
+| 预约 | `/pages/order/list/index` | 预约单列表 | ✅ 预约 |
 | 预约详情 | `/pages/order/detail/index` | 预约单详情与取消 | — |
 | 个人中心 | `/pages/mine/index` | 账号信息、退出登录 | ✅ 我的 |
 | 登录 | `/pages/login/index` | 手机号 + 密码登录、微信手机号快捷登录 | — |

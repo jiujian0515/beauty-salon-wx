@@ -1,7 +1,8 @@
 import Taro from '@tarojs/taro'
-import { API_BASE_URL, API_SUCCESS_CODES, REQUEST_TIMEOUT } from '@/constants'
+import { API_BASE_URL, API_NOT_LOGIN_CODE, API_SUCCESS_CODES, REQUEST_TIMEOUT } from '@/constants'
 import { ROUTES } from '@/constants/routes'
 import { useAuthStore } from '@/store/auth'
+import { reLaunch } from '@/utils/navigation'
 import type { ApiResponse } from '@/types/api'
 
 type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH'
@@ -39,7 +40,7 @@ function isApiResponse(value: unknown): value is ApiResponse<unknown> {
 
 function handleUnauthorized() {
   useAuthStore.getState().clearSession()
-  Taro.reLaunch({ url: ROUTES.LOGIN })
+  reLaunch(ROUTES.LOGIN)
 }
 
 export async function request<T = unknown>(options: RequestOptions): Promise<T> {
@@ -82,6 +83,11 @@ export async function request<T = unknown>(options: RequestOptions): Promise<T> 
   }
 
   if (isApiResponse(body)) {
+    // 后端未登录/登录失效时 HTTP 状态码仍是 200，只能靠业务码判断
+    if (body.code === API_NOT_LOGIN_CODE) {
+      handleUnauthorized()
+      throw new ApiError(API_NOT_LOGIN_CODE, body.message || '登录已过期，请重新登录')
+    }
     if (!API_SUCCESS_CODES.includes(body.code)) {
       throw new ApiError(body.code, body.message || '请求失败')
     }
