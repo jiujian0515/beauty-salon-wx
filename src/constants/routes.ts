@@ -4,8 +4,7 @@ export const ROUTES = {
   SERVICE_DETAIL: '/pages/service/detail/index',
   BOOKING: '/pages/booking/index',
   PAYMENT: '/pages/payment/index',
-  ORDER_LIST: '/pages/order/list/index',
-  ORDER_DETAIL: '/pages/order/detail/index',
+  ORDER_LIST: '/pages/order/index',
   MINE: '/pages/mine/index',
   LOGIN: '/pages/login/index'
 } as const

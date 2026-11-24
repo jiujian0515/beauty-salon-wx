@@ -1,3 +1,10 @@
+<!--
+ * @Author: liukui
+ * @Date: 2026-11-21 03:26:32
+ * @LastEditors: liukui
+ * @LastEditTime: 2026-11-25 00:34:05
+ * @Description: 
+-->
 # 美容院轻量 SaaS · 顾客端（beauty-salon-wx）
 
 > 基于 **Taro 4 + React 18 + TypeScript** 的顾客端应用，一套代码同时构建「微信小程序」与「移动 H5」。
@@ -52,8 +59,7 @@ beauty-salon-wx
 │   │   ├── service/detail/    # 服务详情
 │   │   ├── booking/           # 选择时段并提交预约
 │   │   ├── payment/           # 支付定金
-│   │   ├── order/list/        # 我的预约（Tab）
-│   │   ├── order/detail/      # 预约详情 / 取消
+│   │   ├── order/             # 我的预约（Tab）
 │   │   ├── mine/              # 个人中心（Tab）
 │   │   └── login/             # 登录（密码 / 微信手机号快捷登录）
 │   ├── services/
@@ -145,8 +151,7 @@ Taro 只会把 **`TARO_APP_` 前缀**的变量注入到客户端代码，切勿�
 | 服务详情 | `/pages/service/detail/index` | 服务说明、时长、价格、定金 | — |
 | 选择时段 | `/pages/booking/index` | 按日期选择可售时段并提交预约 | — |
 | 支付定金 | `/pages/payment/index` | 展示待支付预约单并支付 | — |
-| 预约 | `/pages/order/list/index` | 预约单列表 | ✅ 预约 |
-| 预约详情 | `/pages/order/detail/index` | 预约单详情与取消 | — |
+| 预约 | `/pages/order/index` | 预约单列表 | ✅ 预约 | ✅ 支付 | ✅ 取消
 | 个人中心 | `/pages/mine/index` | 账号信息、退出登录 | ✅ 我的 |
 | 登录 | `/pages/login/index` | 手机号 + 密码登录、微信手机号快捷登录 | — |
 

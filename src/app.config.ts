@@ -2,7 +2,7 @@
  * @Author: liukui
  * @Date: 2026-11-21 03:51:22
  * @LastEditors: liukui
- * @LastEditTime: 2026-11-23 16:25:06
+ * @LastEditTime: 2026-11-25 00:33:44
  * @Description:
  */
 export default defineAppConfig({
@@ -11,8 +11,7 @@ export default defineAppConfig({
     'pages/service/detail/index',
     'pages/booking/index',
     'pages/payment/index',
-    'pages/order/list/index',
-    'pages/order/detail/index',
+    'pages/order/index',
     'pages/mine/index',
     'pages/login/index'
   ],
@@ -36,7 +35,7 @@ export default defineAppConfig({
         selectedIconPath: 'assets/tabbar/service-active.png'
       },
       {
-        pagePath: 'pages/order/list/index',
+        pagePath: 'pages/order/index',
         text: '预约',
         iconPath: 'assets/tabbar/appointment.png',
         selectedIconPath: 'assets/tabbar/appointment-active.png'

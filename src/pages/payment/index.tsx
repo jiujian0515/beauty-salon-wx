@@ -9,7 +9,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react'
 import Taro from '@tarojs/taro'
 import { Text, View } from '@tarojs/components'
 import { ROUTES } from '@/constants/routes'
-import { createReservation } from '@/services/api'
+import { createReservation, mockPay } from '@/services/api'
 import type { ReservationCreateResponse } from '@/types'
 import { reLaunch } from '@/utils/navigation'
 import { formatPrice } from '@/utils/price'
@@ -55,13 +55,25 @@ export default function PaymentPage() {
     submit()
   }, [submit])
 
-  // 演示环境模拟支付成功（后端 mock-pay 回调）
-  const handleMockPay = () => {
+  // 演示环境模拟支付成功（后端 mock-pay 触发回调确认预约）
+  const handleMockPay = async () => {
+    const outTradeNo = result?.paymentParams?.outTradeNo
+    if (typeof outTradeNo !== 'string' || !outTradeNo) {
+      Taro.showToast({ title: '支付信息缺失，请重新下单', icon: 'none' })
+      return
+    }
     setPaying(true)
-    setTimeout(() => {
+    try {
+      await mockPay(outTradeNo)
       setResult((prev) => (prev ? { ...prev, status: 'CONFIRMED', paymentRequired: false } : prev))
+    } catch (err) {
+      Taro.showToast({
+        title: err instanceof Error ? err.message : '支付失败，请稍后重试',
+        icon: 'none'
+      })
+    } finally {
       setPaying(false)
-    }, 800)
+    }
   }
 
   const backHome = () => {

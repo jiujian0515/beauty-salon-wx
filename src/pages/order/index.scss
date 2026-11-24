@@ -1,0 +1,398 @@
+// 我的预约：Atelier Morandi 设计语言（暖象牙底 + 莫兰迪梅子色 + 编辑感衬线标题）
+// 尺寸按 designWidth=750 编写
+
+.order-list-page {
+  --alm-surface: #fff8f7;
+  --alm-surface-low: #fef0f1;
+  --alm-surface-container: #f8ebec;
+  --alm-surface-high: #f2e5e6;
+  --alm-on-surface: #201a1b;
+  --alm-on-surface-variant: #524344;
+  --alm-outline: #847374;
+  --alm-outline-variant: #d6c2c3;
+  --alm-primary: #9b5d64;
+  --alm-primary-deep: #854e54;
+  --alm-secondary: #98434c;
+  --alm-tertiary: #495a51;
+  --alm-white: #fff;
+  --alm-serif: 'Bodoni Moda', 'Songti SC', 'STSong', georgia, serif;
+
+  box-sizing: border-box;
+  min-height: 100vh;
+  padding: 24px 40px calc(48px + env(safe-area-inset-bottom));
+  background: var(--alm-surface);
+  color: var(--alm-on-surface);
+}
+
+// ---------- 保障条 ----------
+.order-assure {
+  display: flex;
+  align-items: center;
+  padding: 20px 24px;
+  background-color: var(--alm-surface-low);
+  border-radius: 16px;
+
+  &__mark {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    margin-right: 16px;
+    background-color: #d5e7db;
+    border-radius: 50%;
+  }
+
+  &__mark-text {
+    color: var(--alm-tertiary);
+    font-size: 24px;
+    font-weight: 700;
+  }
+
+  &__text {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+
+  &__title {
+    font-size: 24px;
+    font-weight: 600;
+  }
+
+  &__desc {
+    margin-top: 4px;
+    color: var(--alm-outline);
+    font-size: 20px;
+  }
+}
+
+// ---------- 状态筛选 ----------
+.order-tabs {
+  display: flex;
+  margin-top: 24px;
+  white-space: nowrap;
+
+  &__item {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 28px;
+    margin-right: 16px;
+    background-color: var(--alm-surface-container);
+    border-radius: 999px;
+  }
+
+  &__item--active {
+    background-color: var(--alm-primary);
+  }
+
+  &__label {
+    color: var(--alm-on-surface-variant);
+    font-size: 24px;
+  }
+
+  &__item--active &__label {
+    color: var(--alm-white);
+    font-weight: 600;
+  }
+}
+
+// ---------- 提示 / 空态 ----------
+.order-hint {
+  display: block;
+  padding: 40px 0;
+  color: var(--alm-outline);
+  font-size: 24px;
+  text-align: center;
+
+  &--end {
+    padding: 32px 0 8px;
+    font-size: 20px;
+  }
+}
+
+.order-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 96px 40px 0;
+  text-align: center;
+
+  &__mark {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 140px;
+    height: 140px;
+    background-color: var(--alm-surface-high);
+    border-radius: 50%;
+  }
+
+  &__mark-text {
+    color: var(--alm-outline);
+    font-size: 56px;
+    line-height: 1;
+  }
+
+  &__title {
+    margin-top: 32px;
+    font-family: var(--alm-serif);
+    font-size: 34px;
+    font-weight: 600;
+  }
+
+  &__desc {
+    margin-top: 12px;
+    color: var(--alm-outline);
+    font-size: 22px;
+    line-height: 1.7;
+  }
+
+  &__btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 80px;
+    padding: 0 48px;
+    margin-top: 40px;
+    background-color: var(--alm-primary);
+    border-radius: 999px;
+  }
+
+  &__btn-text {
+    color: var(--alm-white);
+    font-size: 24px;
+    font-weight: 600;
+  }
+}
+
+// ---------- 预约卡片 ----------
+.order-card {
+  margin-top: 24px;
+  overflow: hidden;
+  background-color: var(--alm-white);
+  border: 1px solid rgb(155 93 100 / 12%);
+  border-radius: 20px;
+  box-shadow: 0 8px 24px rgb(44 37 38 / 4%);
+
+  &__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 24px;
+    background-color: var(--alm-surface-container);
+  }
+
+  &__head--pending {
+    background-color: #fdf0e8;
+  }
+
+  &__head--confirmed {
+    background-color: #eef2ef;
+  }
+
+  &__head--done,
+  &__head--closed {
+    background-color: #f4f0ec;
+  }
+
+  &__status {
+    display: flex;
+    align-items: center;
+    min-width: 0;
+  }
+
+  &__dot {
+    flex-shrink: 0;
+    width: 12px;
+    height: 12px;
+    margin-right: 10px;
+    background-color: var(--alm-outline);
+    border-radius: 50%;
+  }
+
+  &__head--pending &__dot {
+    background-color: #c4743f;
+  }
+
+  &__head--confirmed &__dot {
+    background-color: var(--alm-tertiary);
+  }
+
+  &__status-text {
+    overflow: hidden;
+    font-size: 22px;
+    font-weight: 600;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__head--pending &__status-text {
+    color: #8a4b29;
+  }
+
+  &__head--confirmed &__status-text {
+    color: #3d4c42;
+  }
+
+  &__head--done &__status-text,
+  &__head--closed &__status-text {
+    color: #6e6667;
+  }
+
+  &__no {
+    flex-shrink: 0;
+    margin-left: 16px;
+    color: var(--alm-outline);
+    font-size: 20px;
+  }
+
+  &__body {
+    padding: 24px;
+  }
+
+  &__name {
+    display: block;
+    font-family: var(--alm-serif);
+    font-size: 32px;
+    font-weight: 600;
+    line-height: 1.35;
+  }
+
+  &__tags {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 12px;
+  }
+
+  &__tag {
+    padding: 4px 14px;
+    margin: 0 12px 8px 0;
+    color: #6e6667;
+    font-size: 20px;
+    background-color: #f4efeb;
+    border-radius: 999px;
+  }
+
+  &__tag--deposit {
+    color: var(--alm-primary);
+    background-color: #f9ebec;
+  }
+
+  &__tag--course {
+    color: #3d4c42;
+    background-color: #eef2ef;
+  }
+
+  &__info {
+    padding: 16px 20px;
+    margin-top: 8px;
+    background-color: var(--alm-surface-container);
+    border-radius: 16px;
+  }
+
+  &__info-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    padding: 8px 0;
+  }
+
+  &__info-label {
+    flex-shrink: 0;
+    color: var(--alm-outline);
+    font-size: 22px;
+  }
+
+  &__info-value {
+    flex: 1;
+    margin-left: 24px;
+    font-size: 24px;
+    font-weight: 600;
+    text-align: right;
+  }
+
+  &__foot {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    padding-top: 16px;
+    margin-top: 16px;
+    border-top: 1px solid var(--alm-surface-high);
+  }
+
+  &__amount {
+    color: var(--alm-on-surface-variant);
+    font-size: 22px;
+  }
+
+  &__amount--course {
+    color: var(--alm-tertiary);
+    font-weight: 600;
+  }
+
+  &__amount-value {
+    margin-left: 10px;
+    color: var(--alm-secondary);
+    font-size: 32px;
+    font-weight: 700;
+  }
+
+  &__note {
+    color: #8a4b29;
+    font-size: 20px;
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+  }
+
+  &__btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 68px;
+    padding: 0 32px;
+    margin-left: 16px;
+    border-radius: 12px;
+  }
+
+  &__btn--ghost {
+    background-color: var(--alm-surface-high);
+  }
+
+  &__btn--ghost:active {
+    background-color: var(--alm-outline-variant);
+  }
+
+  &__btn + &__btn {
+    margin-left: 16px;
+  }
+
+  &__btn-text {
+    color: var(--alm-primary);
+    font-size: 24px;
+    font-weight: 600;
+  }
+
+  &__btn--ghost + &__btn {
+    background-color: var(--alm-primary);
+  }
+
+  &__btn--ghost + &__btn:active {
+    background-color: var(--alm-primary-deep);
+  }
+
+  &__btn--ghost + &__btn &__btn-text {
+    color: var(--alm-white);
+  }
+
+  &__btn-text--muted {
+    color: var(--alm-on-surface-variant);
+  }
+}
